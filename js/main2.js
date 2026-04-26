@@ -50,10 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			adConfig({
 				preloadAdBreaks: 'on',
 				onReady: () => {
-					clearInterval(onReadyTimeoutInterval);
-					if (!window.axGAFGHTML_didOnReadyTimeout) {
-						showGameAreaAd('preroll');
-					}
+					return;
 				}
 			});
 		}
@@ -200,25 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 		function canRefreshAds(pTrigger = 'GameStarted')
 		{
-			switch (pTrigger)
-			{
-				case 'GameOverExited':
-				case 'GamePaused': 
-				case 'GameUnpaused': 
-					if (((Date.now() / 1000) - lastAdRefreshOnActionTimeSEC) < 60) { return false; }
-					break;
-				case 'TimeInterval':
-					if (((Date.now() / 1000) - lastAdRefreshOnTimeIntervalTimeSEC) < 60) { return false; }
-					break;
-			}
-			switch (pTrigger)
-			{
-				case 'GameOverExited': return true;
-				case 'GamePaused': return true;
-				case 'GameUnpaused': return true;
-				case 'TimeInterval': return false;
-				default: return false;
-			}
+			return false;
 		}
 		window.canRefreshAds = canRefreshAds;
 	
@@ -229,38 +208,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		window.isGameAreaAdActive = isGameAreaAdActive;
 	
 	function showGameAreaAd(pType = 'next') {
-		if (pType === 'next') {
-			// 2nd+ plays: request VAST preroll from parent
-			console.log("[Game] Requesting VAST preroll from parent");
-			_isGameAreaAdActive = true;
-			try {
-				window.parent.postMessage({ type: 'playVastPreroll' }, '*');
-			} catch (e) {
-				console.log("[Game] Could not request VAST preroll, proceeding");
-				_isGameAreaAdActive = false;
-				onGameAreaAdComplete();
-			}
-			return;
-		}
-		// First load: H5 preroll ad
-		if (isAFGHTML5Enabled) {
-			try {
-				_isGameAreaAdActive = true;
-				adBreak({
-					type: pType,
-					name: 'AD_NAME',
-					adBreakDone: axGAFGHTML5_axBreakDone
-				});
-			} catch (e) {
-				_isGameAreaAdActive = true;
-				onGameAreaAdComplete();
-			}
-		}
-		else {
-			_isGameAreaAdActive = true;
 			onGameAreaAdComplete();
 		}
-	}
+		
 	window.showGameAreaAd = showGameAreaAd;
 	
 	function onGameAreaAdComplete() {
