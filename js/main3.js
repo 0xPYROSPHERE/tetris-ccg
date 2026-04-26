@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var _isGameAreaAdActive = false;
 	var _gameInitialized = false; // Track if game menu has been initialized
 	var _isGamePlaying = false; // Track if game is currently playing (not paused)
-	var _isFirstLoad = true; // First load shows click-to-play overlay
+	var _isFirstLoad = false; // First load shows click-to-play overlay
 	
 		var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
 			(navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && window.screen.width <= 1024);
