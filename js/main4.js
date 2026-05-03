@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			(navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && window.screen.width <= 1024);
 		
 		var isAFGHTML5EnabledOnMobile = true;
-		var TET_ENV__ADS_INTERSTITIAL_AFGH5_ENABLED = true;
+		var TET_ENV__ADS_INTERSTITIAL_AFGH5_ENABLED = false;
 		var isAFGHTML5Enabled = isMobile ? isAFGHTML5EnabledOnMobile &&  TET_ENV__ADS_INTERSTITIAL_AFGH5_ENABLED : TET_ENV__ADS_INTERSTITIAL_AFGH5_ENABLED;
 		
 		//----------------------------------------------------------------
